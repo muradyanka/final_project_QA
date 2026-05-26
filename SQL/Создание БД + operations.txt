@@ -1,0 +1,109 @@
+Create table Login_password (
+id_login Integer Primary key autoincrement,
+login Varchar,
+password varchar,
+created_at DATE,
+last_login datetime
+)
+
+Create table Bank_cards (
+card_id Integer Primary key autoincrement,
+card_number integer,
+type_card varchar,
+created_at Date,
+expiration_date DATE 
+)
+
+Create table Users_messages (
+message_id Integer Primary key autoincrement,
+topic Varchar,
+text_message text,
+created_at Datetime
+)
+
+Create table Users (
+user_id Integer Primary key autoincrement,
+first_name Varchar,
+last_name Varchar,
+age integer,
+phone_number varchar,
+email varchar,
+id_login integer,
+bank_card integer,
+user_message integer,
+Foreign key (id_login) references Login_password (id_login),
+foreign key (bank_card) references Bank_cards (card_id),
+foreign key (user_message) references Users_messages (message_id)
+)
+
+insert into Login_password (login, password, created_at, last_login) values ("Богдан", "bodya12345678", "22.10.2023", "20.05.2026 17:22"), ("Карина", "room1254","10.08.2019", "21.05.2026 11:08"), ("Левик","astef057", "15.10.2020", "15.04.2026 21:32"), ("Марина", "584drift", "18.02.2023", "20.05.2026 19:07")
+
+select * from Login_password
+
+INSERT INTO Bank_cards (card_number, type_card, created_at, expiration_date) VALUES
+(4276123456789012, "Visa", "2023-10-21", "2028-01-15"),
+(5555444433332222, "MasterCard", "2019-10-08", "2027-06-10"),
+(2200123456789999, "Mir", "2025-03-05", "2029-03-05"),
+(4111111122223333, "Visa", "2021-11-20", "2026-11-20")
+
+select * from Bank_cards
+
+INSERT INTO Users_messages (topic, text_message, created_at)
+VALUES
+("Проблема с картой", "Моя карта не работает в банкомате", "20.05.2026 10:30"),
+("Ошибка платежа", "Платёж не был успешно выполнен", "15.05.2026 11:15"),
+("Поддержка аккаунта", "Мне нужна помощь с моим аккаунтом", "20.05.2026 12:00"),
+("Проблема с переводом", "Перевод денег слишком долго загружается", "08.05.2026 13:45")
+
+select * from Users_messages
+
+INSERT INTO Users (first_name, last_name, age, phone_number, email, id_login, bank_card, user_message)
+VALUES
+("Богдан", "Петров", 36, "+79991234567", "bogdan@mail.ru", 1, 1, 1),
+("Карина", "Иванова", 30, "+79997654321", "karina@mail.ru", 2, 2, 2),
+("Левик", "Сидоров", 32, "+79995554433", "levik@mail.ru", 3, 3, 3),
+("Марина", "Смирнова", 22, "+79998887766", "marina@mail.ru", 4, 4, 4);
+
+select * from Users
+
+SELECT 
+    Users.first_name,
+    Users.last_name,
+    Login_password.login,
+    Login_password.password,
+    Login_password.created_at
+FROM Users
+INNER JOIN Login_password 
+ON Users.id_login = Login_password.id_login
+
+SELECT 
+    Users.first_name,
+    Users.last_name,
+    Login_password.login,
+    Login_password.password
+FROM Users
+INNER JOIN Login_password 
+ON Users.id_login = Login_password.id_login
+
+SELECT 
+    Users.first_name,
+    Users.last_name,
+    Bank_cards.card_number,
+    Bank_cards.type_card,
+    Bank_cards.expiration_date,
+    Users.age
+FROM Users
+INNER JOIN Bank_cards
+ON Users.bank_card = Bank_cards.card_id
+WHERE Users.age > 30
+
+SELECT 
+    Users.first_name,
+    Users.last_name,
+    Users_messages.topic,
+    Users_messages.text_message,
+    Users_messages.created_at
+FROM Users
+INNER JOIN Users_messages
+ON Users.user_message = Users_messages.message_id
+ORDER BY Users_messages.created_at

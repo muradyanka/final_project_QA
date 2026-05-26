@@ -1,0 +1,68 @@
+newman run final_project.postman_collection.json -e Final_project.postman_environment__
+(node:4676) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+final_project
+
+→ auth
+  POST https://restful-booker.herokuapp.com/auth [200 OK, 766B, 551ms]
+  √  Status code is 200
+  √  Token is a non-empty string
+  √  Body matches string
+
+→ Create Booking
+  POST https://restful-booker.herokuapp.com/booking [200 OK, 943B, 129ms]
+  √  Status code is 200
+  √  Response time is less than 6000ms
+  √  Body matches string
+
+→ Get all Booking
+  GET https://restful-booker.herokuapp.com/booking [200 OK, 55.89kB, 376ms]
+  √  Status code is 200
+  √  Body matches string
+  √  Response time is less than 6000ms
+
+→ Get Booking
+  GET https://restful-booker.herokuapp.com/booking/2 [200 OK, 920B, 127ms]
+  √  Status code is 200
+  √  Body matches string
+  √  Response time is less than 6000ms
+
+→ Update Booking
+  PUT https://restful-booker.herokuapp.com/booking/4340 [200 OK, 918B, 127ms]
+  √  Status code is 200
+  √  Body matches string
+  √  Response time is less than 6000ms
+
+→ Partial Update Booking
+  PATCH https://restful-booker.herokuapp.com/booking/4340 [200 OK, 918B, 127ms]
+  √  Status code is 200
+  √  Body matches string
+  √  Response time is less than 6000ms
+
+→ Delete Booking
+  DELETE https://restful-booker.herokuapp.com/booking/4340 [201 Created, 743B, 127ms]
+  √  Status code is 201
+  √  Body matches string
+  √  Response time is less than 6000ms
+
+┌─────────────────────────┬─────────────────────┬────────────────────┐
+│                         │            executed │             failed │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              iterations │                   1 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│                requests │                   7 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│            test-scripts │                   7 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│      prerequest-scripts │                   0 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              assertions │                  21 │                  0 │
+├─────────────────────────┴─────────────────────┴────────────────────┤
+│ total run duration: 2.1s                                           │
+├────────────────────────────────────────────────────────────────────┤
+│ total data received: 55.89kB (approx)                              │
+├────────────────────────────────────────────────────────────────────┤
+│ average response time: 223ms [min: 127ms, max: 551ms, s.d.: 158ms] │
+└────────────────────────────────────────────────────────────────────┘
